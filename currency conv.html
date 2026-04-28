@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XYZ-Company - Currency Exchange Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #ffffff;
+            padding: 8px 20px;
+        }
+
+        .main-wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-top: 4px solid #e8e8e8;
+            border-bottom: 4px solid #e8e8e8;
+            border-left: 18px solid #e8e8e8;
+            border-right: 18px solid #e8e8e8;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-blue {
+            background-color: #1a1447;
+            color: #ffffff;
+            text-align: center;
+            padding: 28px 20px 50px;
+        }
+
+        .header-blue h1 {
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .header-blue h2 {
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 2.5px;
+        }
+
+        .section-white {
+            background-color: #ffffff;
+            padding: 40px 18px 32px;
+            position: relative;
+        }
+
+        .card-white {
+            background-color: #ffffff;
+            width: 90%;
+            max-width: 800px;
+            margin: -80px auto 0;
+            padding: 22px 28px 26px;
+            box-shadow: 0 3px 14px rgba(0, 0, 0, 0.09);
+            border: 1px solid #e8e8e8;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            align-items: start;
+        }
+
+        .group-field {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .group-field label {
+            font-size: 10px;
+            font-weight: 600;
+            color: #222222;
+            margin-bottom: 5px;
+        }
+
+        .group-field input,
+        .group-field select {
+            height: 32px;
+            padding: 0 10px;
+            font-size: 12px;
+            border: 1px solid #d2d2d2;
+            border-radius: 4px;
+            background-color: #fafafa;
+            color: #333333;
+            outline: none;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .group-field input:focus,
+        .group-field select:focus {
+            border-color: #1a1447;
+            background-color: #ffffff;
+        }
+
+        .amount-wrapper {
+            position: relative;
+        }
+
+        .amount-wrapper input[type="number"] {
+            padding-right: 25px;
+            -moz-appearance: textfield;
+        }
+
+        .amount-wrapper input[type="number"]::-webkit-inner-spin-button,
+        .amount-wrapper input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            display: none;
+            margin: 0;
+        }
+
+        .amount-arrows {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .amount-wrapper:hover .amount-arrows,
+        .amount-wrapper input:focus + .amount-arrows,
+        .amount-wrapper input:hover + .amount-arrows {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .arrow-btn {
+            width: 14px;
+            height: 9px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            display: block;
+        }
+
+        .arrow-btn:hover {
+            transform: scale(1.15);
+        }
+
+        .group-field select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='10' viewBox='0 0 12 10'%3E%3Cpath d='M1 1 L11 1 L6 9 Z' stroke='%234A9FEF' stroke-width='1.5' fill='none'/%3E%3Csvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 11px center;
+            padding-right: 28px;
+        }
+
+        .button-convert {
+            background-color: #1a1447;
+            color: #ffffff;
+            border: none;
+            padding: 11px 32px;
+            font-size: 12px;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            width: 100%;
+            margin-top: 28px;
+        }
+
+        .button-convert:hover {
+            background-color: #231b5c;
+            box-shadow: 0 4px 8px rgba(26, 20, 71, 0.25);
+        }
+
+        .result-value {
+            font-size: 19px;
+            font-weight: 700;
+            color: #000000;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+
+    <div class="header-blue">
+        <h1>XYZ-COMPANY</h1>
+        <h2>CURRANCY EXCHANGE PLATFORM</h2>
+    </div>
+
+    <div class="section-white">
+
+        <div class="card-white">
+
+            <div class="form-grid">
+                
+                <!-- COLUMN 1: AMOUNT + CONVERT -->
+                <div class="group-field">
+                    <label>Amount</label>
+                    <div class="amount-wrapper">
+                        <input type="number" value="100" min="0" id="amountInput">
+                        
+                    </div>
+                    <button class="button-convert">Convert</button>
+                </div>
+
+                <!-- COLUMN 2: FROM -->
+                <div class="group-field">
+                    <label>From</label>
+                    <select id="fromSelect">
+                        <option selected>USD - $ US Dollar</option>
+                        <option>CAD - C$ Canadian Dollar</option>
+                        <option>MXN - $ Mexican Peso</option>
+                        <option>EUR - € Euro</option>
+                        <option>GBP - £ British Pound</option>
+                        <option>CHF Swiss Franc</option>
+                        <option>Rwanda - RWF</option>
+                    </select>
+                </div>
+
+                <!-- COLUMN 3: TO -->
+                <div class="group-field">
+                    <label>To</label>
+                    <select id="toSelect">
+                        <option selected>Rwanda - RWF</option>
+                        
+                        <option>Euro - €</option>
+                        <option>British Pound - £</option>
+                        <option>Swiss Franc</option>
+                        
+                        <option>US Dollar - $</option>
+                        <option>Canadian Dollar - C$</option>
+                        <option>Mexican Peso - $</option>
+                    </select>
+                    
+                    <label style="margin-top: 18px;">Result</label>
+                    <div class="result-value">10 300</div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    function changeAmount(change) {
+        const amountInput = document.getElementById('amountInput');
+        let currentValue = parseInt(amountInput.value) || 0;
+        currentValue += change;
+        
+        if (currentValue < 0) currentValue = 0;
+        
+        amountInput.value = currentValue;
+    }
+
+    document.querySelector('.button-convert').addEventListener('click', function() {
+        const amount = parseFloat(document.getElementById('amountInput').value) || 0;
+        document.querySelector('.result-value').textContent = 
+            Math.round(amount * 103).toLocaleString('fr-FR');
+    });
+</script>
+
+</body>
+</html>
